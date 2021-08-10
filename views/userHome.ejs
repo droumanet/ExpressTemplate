@@ -1,0 +1,54 @@
+<%- include('header'); %>
+	<h1>Ajouter un utilisateur</h1>
+	<form action="/user/add" method="POST">
+		<div>
+			<input type="text" name="firstname" placeholder="prénom">
+			<input type="text" name="lastname" placeholder="nom">
+			<input type="text" name="city" placeholder="ville">
+			<input type="text" name="state" placeholder="département">
+			<input type="text" name="country" placeholder="pays">
+			<input type="submit" value="Ajouter"><br>
+		</div>
+	</form>
+	<br>
+	<% if (data.length> 0) {%>
+		<h1>Liste des utilisateurs</h1>
+		<table>
+			<thead>
+				<tr>
+					<th> PRÉNOM </th>
+					<th> NOM </th>
+					<th> VILLE </th>
+					<th> DÉPARTEMENT </th>
+					<th> PAYS </th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var i=0; i < data.length; i++) {%>
+					<tr>
+						<td>
+							<%= data[i].firstname%>
+						</td>
+						<td>
+							<%= data[i].lastname%>
+						</td>
+						<td>
+							<%= data[i].city%>
+						</td>
+						<td>
+							<%= data[i].state%>
+						</td>
+						<td>
+							<%= data[i].country%>
+						</td>
+						<td>
+							<a href="/user/edit/<%= data[i]._id%>" class="button"><i class="far fa-edit"></i></a>
+							<a href="/user/delete/<%= data[i]._id%>" class="button"><i class="fas fa-times"></i></a>
+						</td>
+					</tr>
+					<% } %>
+			</tbody>
+		</table>
+		<% } %>
+			<%- include('footer'); %>
