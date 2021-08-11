@@ -1,4 +1,7 @@
 
+// This file manage all routes for /user/
+// --------------------------------------
+
 var express =  require('express');  
 var userControler = require('../controllers/userController');  
 

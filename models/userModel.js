@@ -1,4 +1,5 @@
 var mongoose  = require('mongoose')  
+// const { deleteUser } = require('../controllers/userController')
 
 //specify the fields which we want in our collection(table).  
 var userSchema = new mongoose.Schema({  
@@ -15,20 +16,16 @@ var userModel = module.exports = mongoose.model('user',userSchema)
 
 //this function will find all the user   
 //there will be just a callback parameter  
-module.exports.getUser=(cb)=>{  
-	userModel.find((err,data)=>{  
-		if(err){  
-			console.log(err)  
-		}  
-		else{  
-			cb(null,data)  
-		}  
-	})  
+async function getUser() {  
+	let data = await userModel.find()
+	console.log("AWAIT GETUSER = ",data)
+	console.debug("----------------------------------------")
+	return data  
 }  
 
 //this will add new user to the user collection  
 //this will take 2 parameter.newUser is object and cb is a callback  
-module.exports.addUser=(newUser,cb)=>{  
+async function addUser (newUser) {  
 	const user = new userModel({  
 		firstname:newUser.firstname,  
 		lastname:newUser.lastname,  
@@ -36,17 +33,15 @@ module.exports.addUser=(newUser,cb)=>{
 		state:newUser.state,  
 		country:newUser.country   
 	})  
-	user.save(cb)  
+	return user.save()  
 }  
 
-module.exports.deleteUser=(user, cb)=>{  
-	userModel.findByIdAndDelete(user, (err, data) => {
-		if (err) {
-			console.log(err)
-		}
-		else {
-			console.log("Delete result: ", data)
-			cb(null, data)
-		}
-	}) 
+async function deleteUser(user) {  
+	return userModel.findByIdAndDelete(user) 
 }  
+
+module.exports = {
+	getUser,
+	addUser,
+	deleteUser
+}
