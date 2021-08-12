@@ -1,0 +1,20 @@
+<%- include('header'); %>
+	<h1>Editer un utilisateur</h1>
+	<% debugger; %>
+	<% if (_id != undefined) {%>
+	<form action="/user/edit" method="POST">
+		<div>
+			<input type="text" name="id" hidden value="<%= _id %>">
+			<input type="text" name="firstname" placeholder="prénom" value="<%= firstname %>">
+			<input type="text" name="lastname" placeholder="nom" value="<%= lastname %>">
+			<input type="text" name="city" placeholder="ville" value="<%= city %>">
+			<input type="text" name="state" placeholder="département" value="<%= state %>">
+			<input type="text" name="country" placeholder="pays" value="<%= country %>">
+			<input type="submit" value="Valider">
+			<input type="reset" value="Annuler"><br>
+		</div>
+	</form>
+	<% } else { %>
+		<div class="card error"> Aucune donnée à traiter : [<% firstname %>]</div>
+	<% } %>
+	<%- include('footer'); %>

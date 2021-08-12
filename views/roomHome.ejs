@@ -1,5 +1,5 @@
 <%- include('header'); %>
-	<h1>Ajouter un utilisateur</h1>
+	<h1>Ajouter une salle</h1>
 	<form action="/user/add" method="POST">
 		<div>
 			<input type="text" name="firstname" placeholder="prénom">
@@ -12,17 +12,14 @@
 	</form>
 	<br>
 	<% if (data.length> 0) {%>
-		<h1>Liste des utilisateurs</h1>
+		<h1>Liste des salles</h1>
 		<div>
 		<table class="border-fix">
 			<thead>
 				<tr>
-					<th scope="col"> PRÉNOM </th>
-					<th scope="col"> NOM </th>
-					<th scope="col"> VILLE </th>
-					<th scope="col"> DÉPARTEMENT </th>
-					<th scope="col"> PAYS </th>
-					<th scope="col"></th>
+					<th> NOM </th>
+					<th> DESTINATION </th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>

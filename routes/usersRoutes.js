@@ -19,7 +19,8 @@ router.post('/add',userControler.addUsers)
 
 //this route will be executed on /user/edit 
 //editUser function will be called from the controller when request come for this route.  
-router.get('/edit/:id',userControler.editUser)  
+router.get('/edit/:id',userControler.showUser)
+router.post('/edit/',userControler.editUser)   
 
 //this route will be executed on /user/delete
 //deletetUser function will be called from the controller when request come for this route.  
