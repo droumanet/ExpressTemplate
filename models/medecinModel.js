@@ -1,7 +1,7 @@
 var mongoose  = require('mongoose')  
 
 //specify the fields which we want in our collection(table).  
-var userSchema = new mongoose.Schema({  
+var medecinSchema = new mongoose.Schema({  
 	firstname : String,  
 	lastname  : String,  
 	city      : String,  
@@ -11,7 +11,7 @@ var userSchema = new mongoose.Schema({
 
 //here we saving our collectionSchema with the name user in database  
 //userModel will contain the instance of the user for manipulating the data.  
-var userModel = module.exports = mongoose.model('user',userSchema)  
+var userModel = module.exports = mongoose.model('user',medecinSchema)  
 
 //this function will find all the user   
 //there will be just a callback parameter  
@@ -32,13 +32,13 @@ async function addUser (newUser) {
 		state:newUser.state,  
 		country:newUser.country   
 	})  
-	return await user.save()  
+	return user.save()  
 }  
 
 async function findUser (userID) {  
 	let id = {_id : userID}
 	console.log("findUSER: ", id)
-	return await userModel.findOne(id) 
+	return  userModel.findOne(id) 
 } 
 
 async function editUser (newUser) {  
@@ -51,11 +51,11 @@ async function editUser (newUser) {
 	}  
 	const id = newUser.id
 	console.log("ID:", id, "USER:", user)
-	return await userModel.findByIdAndUpdate(id, user)
+	return userModel.findByIdAndUpdate(id, user)
 }  
 
 async function deleteUser(user) {  
-	return await userModel.findByIdAndDelete(user) 
+	return userModel.findByIdAndDelete(user) 
 }  
 
 module.exports = {
