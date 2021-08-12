@@ -1,5 +1,4 @@
 var mongoose  = require('mongoose')  
-// const { deleteUser } = require('../controllers/userController')
 
 //specify the fields which we want in our collection(table).  
 var userSchema = new mongoose.Schema({  
@@ -33,15 +32,36 @@ async function addUser (newUser) {
 		state:newUser.state,  
 		country:newUser.country   
 	})  
-	return user.save()  
+	return await user.save()  
+}  
+
+async function findUser (userID) {  
+	let id = {_id : userID}
+	console.log("findUSER: ", id)
+	return await userModel.findOne(id) 
+} 
+
+async function editUser (newUser) {  
+	const user = { 
+		firstname:newUser.firstname,  
+		lastname:newUser.lastname,  
+		city:newUser.city,  
+		state:newUser.state,  
+		country:newUser.country   
+	}  
+	const id = newUser.id
+	console.log("ID:", id, "USER:", user)
+	return await userModel.findByIdAndUpdate(id, user)
 }  
 
 async function deleteUser(user) {  
-	return userModel.findByIdAndDelete(user) 
+	return await userModel.findByIdAndDelete(user) 
 }  
 
 module.exports = {
 	getUser,
 	addUser,
+	findUser,
+	editUser,
 	deleteUser
 }
