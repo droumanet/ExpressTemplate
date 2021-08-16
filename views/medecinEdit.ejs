@@ -2,14 +2,14 @@
 	<h1>Editer un médecin</h1>
 	<% debugger; %>
 	<% if (_id != undefined) {%>
-	<form action="/user/edit" method="POST">
+	<form action="/medecins/edit" method="POST">
 		<div>
 			<input type="text" name="id" hidden value="<%= _id %>">
-			<input type="text" name="firstname" placeholder="prénom" value="<%= firstname %>">
-			<input type="text" name="lastname" placeholder="nom" value="<%= lastname %>">
-			<input type="text" name="city" placeholder="ville" value="<%= city %>">
-			<input type="text" name="state" placeholder="département" value="<%= state %>">
-			<input type="text" name="country" placeholder="pays" value="<%= country %>">
+			<input type="text" name="nom" placeholder="prénom" value="<%= nom %>">
+			<input type="text" name="specialite" placeholder="nom" value="<%= specialite %>">
+			<input type="text" name="ville" placeholder="ville" value="<%= ville %>">
+			<input type="text" name="CP" placeholder="département" value="<%= CP %>">
+			<input type="text" name="telephone" placeholder="pays" value="<%= telephone %>">
 			<input type="submit" value="Valider">
 			<input type="reset" value="Annuler"><br>
 		</div>

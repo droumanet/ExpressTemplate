@@ -1,12 +1,12 @@
 <%- include('header'); %>
 	<h1>Ajouter un utilisateur</h1>
-	<form action="/user/add" method="POST">
+	<form action="/medecins/add" method="POST">
 		<div>
-			<input type="text" name="firstname" placeholder="prénom">
-			<input type="text" name="lastname" placeholder="nom">
-			<input type="text" name="city" placeholder="ville">
-			<input type="text" name="state" placeholder="département">
-			<input type="text" name="country" placeholder="pays">
+			<input type="text" name="nom" placeholder="nom">
+			<input type="text" name="specialite" placeholder="spécialité">
+			<input type="text" name="ville" placeholder="ville">
+			<input type="text" name="CP" placeholder="5 chiffres">
+			<input type="text" name="telephone" placeholder="10 chiffres">
 			<input type="submit" value="Ajouter"><br>
 		</div>
 	</form>
@@ -17,11 +17,11 @@
 		<table class="border-fix">
 			<thead>
 				<tr>
-					<th scope="col"> PRÉNOM </th>
 					<th scope="col"> NOM </th>
+					<th scope="col"> SPÉCIALITÉ </th>
 					<th scope="col"> VILLE </th>
-					<th scope="col"> DÉPARTEMENT </th>
-					<th scope="col"> PAYS </th>
+					<th scope="col"> CP </th>
+					<th scope="col"> TÉLÉPHOONE </th>
 					<th scope="col"></th>
 				</tr>
 			</thead>
@@ -29,23 +29,23 @@
 				<% for(var i=0; i < data.length; i++) {%>
 					<tr>
 						<td>
-							<%= data[i].firstname%>
+							<%= data[i].nom%>
 						</td>
 						<td>
-							<%= data[i].lastname%>
+							<%= data[i].specialite%>
 						</td>
 						<td>
-							<%= data[i].city%>
+							<%= data[i].ville%>
 						</td>
 						<td>
-							<%= data[i].state%>
+							<%= data[i].CP%>
 						</td>
 						<td>
-							<%= data[i].country%>
+							<%= data[i].telephone%>
 						</td>
 						<td>
-							<a href="/user/edit/<%= data[i]._id%>" class="button"><i class="far fa-edit"></i></a>
-							<a href="/user/delete/<%= data[i]._id%>" class="button"><i class="fas fa-times"></i></a>
+							<a href="/medecins/edit/<%= data[i]._id%>" class="button"><i class="far fa-edit"></i></a>
+							<a href="/medecins/delete/<%= data[i]._id%>" class="button"><i class="fas fa-times"></i></a>
 						</td>
 					</tr>
 					<% } %>

@@ -12,8 +12,8 @@ const defaultRoutes = require('./routes/defaultRoutes')
 const medecinsRoutes = require('./routes/medecinsRoutes')   
 
 // connexion à MongoDB (via framework Mangoose), base de données 'demoDB'
-mongoose.connect('mongodb://localhost:27017/demoDB',{useNewUrlParser:true, useUnifiedTopology: true})  
-.then(()=>console.log('connected to database')).catch(error=>console.log('error occured',error))  
+mongoose.connect('mongodb://localhost:27017/Hopital',{useNewUrlParser:true, useUnifiedTopology: true})  
+.then(()=>console.log('connected to database Hopital')).catch(error=>console.log('error occured',error))  
 
 // Initialisation de l'instance Express
 const app = express()  
@@ -29,8 +29,8 @@ app.set('view engine','ejs')
 app.use(bodyParser.urlencoded({extended:false}))  
 
 // Gestion des routeurs à utiliser en fonction de l'URL de départ
-// note : on pourrait n'utiliser qu'un seul fichier de routes mais il mieux de découper en sous-parties
-app.use('/user/',medecinsRoutes);  
+// note : on peut n'utiliser qu'un seul fichier de routes, le choix est ici de découper au maximum...
+app.use('/medecins/', medecinsRoutes);  
 app.use('/', defaultRoutes);
 
 // Définition du port de l'application  
@@ -39,4 +39,4 @@ const port = process.env.port || 3000;
 // DÉMARRAGE DE L'APPLICATION
 app.listen(port,()=>console.log(`server running at port ${port}`))  
 
-module.exports = app;  
+module.exports = app;

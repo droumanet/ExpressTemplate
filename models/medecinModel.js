@@ -1,67 +1,70 @@
-var mongoose  = require('mongoose')  
+/**
+ * @author David ROUMANET
+ * @version 1.0.0
+ * @description Ce fichier contient les fonctions liées au modèle de données des médecins
+*/
+const mongoose  = require('mongoose')  
 
-//specify the fields which we want in our collection(table).  
-var medecinSchema = new mongoose.Schema({  
-	firstname : String,  
-	lastname  : String,  
-	city      : String,  
-	state     : String,  
-	country   : String  
+// Indique les champs (et les types) utilisés dans la collection de MongoDB.
+// Types : String, Number, Date, Boolean, Array, Decimal128, Buffer, ObjectId, Map
+const medecinSchema = new mongoose.Schema({  
+	nom       : { type: String,  uppercase: true, required: true},
+	specialite: String,  
+	ville     : String,  
+	CP        : Number,
+	telephone :  {fixe : String, mobile: String}
 })  
 
-//here we saving our collectionSchema with the name user in database  
-//userModel will contain the instance of the user for manipulating the data.  
-var userModel = module.exports = mongoose.model('user',medecinSchema)  
+//here we saving our collectionSchema with the name medecin in database  
+//medecinModel will contain the instance of the medecin for manipulating the data.  
+const medecinModel = module.exports = mongoose.model('medecins',medecinSchema)  
 
-//this function will find all the user   
+//this function will find all the medecin   
 //there will be just a callback parameter  
-async function getUser() {  
-	let data = await userModel.find()
-	console.log("AWAIT GETUSER = ",data)
-	console.debug("----------------------------------------")
+async function getmedecin() {  
+	let data = await medecinModel.find()
 	return data  
 }  
 
-//this will add new user to the user collection  
-//this will take 2 parameter.newUser is object and cb is a callback  
-async function addUser (newUser) {  
-	const user = new userModel({  
-		firstname:newUser.firstname,  
-		lastname:newUser.lastname,  
-		city:newUser.city,  
-		state:newUser.state,  
-		country:newUser.country   
+//this will add new medecin to the medecin collection  
+//this will take 2 parameter.newmedecin is object and cb is a callback  
+async function addmedecin (newmedecin) {  
+	const medecin = new medecinModel({  
+		nom:newmedecin.nom,  
+		specialite:newmedecin.specialite,  
+		ville:newmedecin.ville,  
+		CP:newmedecin.CP,  
+		telephone:newmedecin.telephone   
 	})  
-	return user.save()  
+	return medecin.save()  
 }  
 
-async function findUser (userID) {  
-	let id = {_id : userID}
-	console.log("findUSER: ", id)
-	return  userModel.findOne(id) 
+async function findmedecin (medecinID) {  
+	let id = {_id : medecinID}
+	return  medecinModel.findOne(id) 
 } 
 
-async function editUser (newUser) {  
-	const user = { 
-		firstname:newUser.firstname,  
-		lastname:newUser.lastname,  
-		city:newUser.city,  
-		state:newUser.state,  
-		country:newUser.country   
-	}  
-	const id = newUser.id
-	console.log("ID:", id, "USER:", user)
-	return userModel.findByIdAndUpdate(id, user)
+async function editmedecin (newmedecin) {  
+	const medecin = new medecinModel({  
+		nom:newmedecin.nom,  
+		specialite:newmedecin.specialite,  
+		ville:newmedecin.ville,  
+		CP:newmedecin.CP,  
+		telephone:newmedecin.telephone   
+	})  
+	const id = newmedecin.id
+	console.log("ID:", id, "medecin:", medecin)
+	return medecinModel.findByIdAndUpdate(id, medecin)
 }  
 
-async function deleteUser(user) {  
-	return userModel.findByIdAndDelete(user) 
+async function deletemedecin(medecin) {  
+	return medecinModel.findByIdAndDelete(medecin) 
 }  
 
 module.exports = {
-	getUser,
-	addUser,
-	findUser,
-	editUser,
-	deleteUser
+	getmedecin,
+	addmedecin,
+	findmedecin,
+	editmedecin,
+	deletemedecin
 }

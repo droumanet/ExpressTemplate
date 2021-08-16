@@ -1,29 +1,22 @@
-
-// This file manage all routes for /medecins/
-// --------------------------------------
+/**
+ * @author David ROUMANET
+ * @version 1.0.0
+ * @description Ce fichier ne contient que les sous-routes pour le chemin /medecins/
+*/
 
 var express =  require('express');  
 var medecinCtrl = require('../controllers/medecinsCtrl');  
 
-// express.Router is a class to create route handlers  
-//router will contain the Router instance.  
+// Instantiation du router pour permettre la gestion des requêtes HTTP (get, post, etc.)  
 var router = express.Router();  
 
-//this route will be executed on /user/home request  
-//userHome function will be called from the controller when request come for this route.  
+// liste des routes (attention à l'ordre). Pour la suppression d'un médecin, on n'utilise pas router.delete parce
+// qu'un formulaire HTML5 ne propose que les méthodes GET et POST.
 router.get('/home',medecinCtrl.homeMedecin)  
-
-//this route will be executed on /user/add  
-//addUsers function will be called from the controller when request come for this route.  
 router.post('/add',medecinCtrl.addMedecin)  
-
-//this route will be executed on /user/edit 
-//editUser function will be called from the controller when request come for this route.  
 router.get('/edit/:id',medecinCtrl.showMedecin)
 router.post('/edit/',medecinCtrl.editMedecin)   
-
-//this route will be executed on /user/delete
-//deletetUser function will be called from the controller when request come for this route.  
 router.get('/delete/:id',medecinCtrl.deleteMedecin)  
 
+// exportation du module (pour le rendre utilisable dans un autre fichier)
 module.exports = router;  
