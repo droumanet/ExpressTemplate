@@ -1,5 +1,5 @@
 # Express Template
-Ce projet pour les BTS SIO du lycée Aristide Bergès (Isère) peut être utilisé pour démarrer un projet complet de CRUD pour une application.
+Ce projet pour les BTS SIO (2e année) du lycée Aristide Bergès (Isère) peut être utilisé pour démarrer un projet complet de CRUD pour une application.
 
 Il utilise les éléments suivants :
 * Node.JS
