@@ -79,13 +79,14 @@ const medecinsController = {
 	// Fonction permettant d'éditer un profil (par son ID)
 	async editMedecin(req, res) {
 		try {
+			let telephones = {fixe: req.body.telephoneF, mobile: req.body.telephoneM}
 			const medecin = {
 				id:req.body.id,
 				nom: req.body.nom,
 				specialite: req.body.specialite,
 				ville: req.body.ville,
 				CP: req.body.CP,
-				telephone: req.body.telephone
+				telephone: telephones
 			};
 			//this will call the addmedecin function present in medecin.js.  
 			//it will take object as parameter.   

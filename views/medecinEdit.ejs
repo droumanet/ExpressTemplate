@@ -4,17 +4,46 @@
 	<% if (_id != undefined) {%>
 	<form action="/medecins/edit" method="POST">
 		<div>
-			<input type="text" name="id" hidden value="<%= _id %>">
-			<input type="text" name="nom" placeholder="prénom" value="<%= nom %>">
-			<input type="text" name="specialite" placeholder="nom" value="<%= specialite %>">
-			<input type="text" name="ville" placeholder="ville" value="<%= ville %>">
-			<input type="text" name="CP" placeholder="département" value="<%= CP %>">
-			<input type="text" name="telephone" placeholder="pays" value="<%= telephone %>">
-			<input type="submit" value="Valider">
-			<input type="reset" value="Annuler"><br>
+			<div class="row">
+				<input type="text" name="id" hidden value="<%= _id %>">
+				<div class="col-sm-12 col-md-6">
+					<div class="input-group fluid">
+						<span class="tooltip" aria-label="Saisir un nom en majuscule"><label for="frmNom">Nom</label></span>
+						<input type="text" name="nom" id="frmNom" placeholder="nom" value="<%= nom %>">
+					</div>
+					<div class="input-group fluid">
+						<span class="tooltip" aria-label="Spécialité médicale"><label for="frmSpe">Spécialité</label></span>
+						<input type="text" name="specialite" id="frmSpe" placeholder="spécialité" value="<%= specialite %>">
+					</div>
+					<div class="input-group fluid">
+						<label for="frmVille">Ville</label>
+						<input type="text" name="ville" id="frmVille" placeholder="ville" value="<%= ville %>">
+					</div>
+					<div class="input-group fluid">
+						<label for="frmCP">Code Postal</label>
+						<input type="text" name="CP" id="frmCP" placeholder="5 chiffres" value="<%= CP %>">
+					</div>
+					<div class="input-group fluid">
+						<label for="frmTelF">Téléphone fixe</label>
+						<input type="text" name="telephoneF" id="frmTelF" placeholder="10 chiffres" value="<%= telephone.fixe %>">
+					</div>
+					<div class="input-group fluid">
+						<label for="frmTelM">Téléphone mobile</label>
+						<input type="text" name="telephoneM" id="frmTelM" placeholder="10 chiffres" value="<%= telephone.mobile %>">
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<div class="input-group fluid">
+					<input type="submit" class="secondary large" value="Valider"><br>
+					</div>
+					<div class="input-group fluid">
+					<a href="/medecins/home" class="button">Annulation</a><br>
+					</div>
+				</div>
+			</div>
 		</div>
 	</form>
 	<% } else { %>
-		<div class="card error"> Aucune donnée à traiter : [<% firstname %>]</div>
+		<div class="card error"> Aucune donnée à traiter </div>
 	<% } %>
 	<%- include('footer'); %>

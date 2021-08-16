@@ -1,13 +1,34 @@
 <%- include('header'); %>
 	<h1>Ajouter un utilisateur</h1>
 	<form action="/medecins/add" method="POST">
-		<div>
-			<input type="text" name="nom" placeholder="nom">
-			<input type="text" name="specialite" placeholder="spécialité">
-			<input type="text" name="ville" placeholder="ville">
-			<input type="text" name="CP" placeholder="5 chiffres">
-			<input type="text" name="telephone" placeholder="10 chiffres">
-			<input type="submit" value="Ajouter"><br>
+		<div class="row">
+			<div class="col-sm-12 col-md-6">
+				<div class="input-group fluid">
+					<span class="tooltip" aria-label="Saisir un nom en majuscule"><label for="frmNom">Nom</label></span>
+					<input type="text" name="nom" id="frmNom" placeholder="nom">
+				</div>
+				<div class="input-group fluid">
+					<span class="tooltip" aria-label="Spécialité médicale"><label for="frmSpe">Spécialité</label></span>
+					<input type="text" name="specialite" id="frmSpe" placeholder="spécialité">
+				</div>
+				<div class="input-group fluid">
+					<label for="frmVille">Ville</label>
+					<input type="text" name="ville" id="frmVille" placeholder="ville">
+				</div>
+				<div class="input-group fluid">
+					<label for="frmCP">Code Postal</label>
+					<input type="text" name="CP" id="frmCP" placeholder="5 chiffres">
+				</div>
+				<div class="input-group fluid">
+					<label for="frmTel">Téléphone fixe</label>
+					<input type="text" name="telephone" id="frmTel" placeholder="10 chiffres">
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div class="input-group fluid">
+				<input type="submit" class="primary large" value="Ajouter"><br>
+				</div>
+			</div>
 		</div>
 	</form>
 	<br>
@@ -21,12 +42,12 @@
 					<th scope="col"> SPÉCIALITÉ </th>
 					<th scope="col"> VILLE </th>
 					<th scope="col"> CP </th>
-					<th scope="col"> TÉLÉPHOONE </th>
+					<th scope="col"> TÉLÉPHONE(S) </th>
 					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
-				<% for(var i=0; i < data.length; i++) {%>
+				<% for(let i=0; i < data.length; i++) {%>
 					<tr>
 						<td>
 							<%= data[i].nom%>
@@ -41,7 +62,8 @@
 							<%= data[i].CP%>
 						</td>
 						<td>
-							<%= data[i].telephone%>
+							Fixe: <%= data[i].telephone.fixe %><br>
+							Mobile: <%= data[i].telephone.mobile %>
 						</td>
 						<td>
 							<a href="/medecins/edit/<%= data[i]._id%>" class="button"><i class="far fa-edit"></i></a>
