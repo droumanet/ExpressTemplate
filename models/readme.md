@@ -14,6 +14,13 @@ Les étapes d'installation sont :
 * npm install
 * node app.js
 
+
+## MongoDB
+Ce projet utilise une base de données 'Hopital' déjà utilisée lors d'une séance de cours précédente.
+La base peut-être vide et ne pas contenir de collection, car MongoDB peut créer les collections dynamiquement (lors de l'insertion de données).
+S'il s'agit de la base vue en cours, elle contiendra 2 collections : medecins et salles
+
+
 ## Fonctionnement
 L'application utilise le design pattern MVC. Bien que ce ne soit pas nécessaire, le découpage est poussé à l'extrème.
 
