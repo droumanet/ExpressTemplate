@@ -7,6 +7,7 @@ var router = express.Router();
 
 //this route will be executed on /user/home request  
 //userHome function will be called from the controller when request come for this route.  
-router.get('/',defaultController.Home)  
+router.get('/',defaultController.Home)
+router.get('*',defaultController.Error)
 
 module.exports = router;  

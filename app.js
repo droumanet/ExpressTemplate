@@ -2,6 +2,8 @@
  * @author David ROUMANET
  * @version 1.0.0
  * @description Modèle d'application MVC utisant Mongoose, Express, EJS... et un peu de JSDoc
+ * La source originale du code est accessible sur https://www.c-sharpcorner.com/blogs/how-to-setup-mvc-design-pattern-in-express
+ * Toutefois, le code a été fortement remanié sur certains aspects (pas de callback sur la partie modèle).
  */
 
 const express  = require('express')  
@@ -25,13 +27,15 @@ app.use(express.static("public"))
 // Choix du moteur de rendu des vues : EJS 
 app.set('view engine','ejs')  
 
-//fetch form data from the request  
-app.use(bodyParser.urlencoded({extended:false}))  
+//fetch form data from the request
+app.use(express.urlencoded({extended: false}))  
+//app.use(bodyParser.urlencoded({extended:false}))  
 
 // Gestion des routeurs à utiliser en fonction de l'URL de départ
 // note : on peut n'utiliser qu'un seul fichier de routes, le choix est ici de découper au maximum...
-app.use('/medecins/', medecinsRoutes);  
-app.use('/', defaultRoutes);
+app.use('/medecins/', medecinsRoutes)
+app.use('/', defaultRoutes)
+app.use('*', defaultRoutes)
 
 // Définition du port de l'application  
 const port = process.env.port || 3000;  
