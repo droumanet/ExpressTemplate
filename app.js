@@ -9,7 +9,6 @@
 const express  = require('express')  
 const mongoose = require('mongoose')  
 const path     = require('path')  
-const bodyParser = require('body-parser')  
 const defaultRoutes = require('./routes/defaultRoutes') 
 const medecinsRoutes = require('./routes/medecinsRoutes')   
 
@@ -35,6 +34,7 @@ app.use(express.urlencoded({extended: false}))
 // note : on peut n'utiliser qu'un seul fichier de routes, le choix est ici de découper au maximum...
 app.use('/medecins/', medecinsRoutes)
 app.use('/', defaultRoutes)
+// lorsque toutes les solutions prévues ont été gérées... 404 ?
 app.use('*', defaultRoutes)
 
 // Définition du port de l'application  
