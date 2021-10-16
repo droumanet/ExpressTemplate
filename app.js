@@ -4,12 +4,17 @@
  * @description Modèle d'application MVC utisant Mongoose, Express, EJS... et un peu de JSDoc
  * La source originale du code est accessible sur https://www.c-sharpcorner.com/blogs/how-to-setup-mvc-design-pattern-in-express
  * Toutefois, le code a été fortement remanié sur certains aspects (pas de callback sur la partie modèle).
- * Cette version ajoute la sécurisation de l'application : HTTPS et Authentification
+ * Cette version ajoute la sécurisation de l'application : HTTPS et Authentification JWT
+ * Elle s'appuie sur le travail d'Étienne ROUZEAUD : https://etienner.github.io/api-json-web-token-authentication-jwt-sur-express-js/
+ * 
  */
 
 // mise en place des modules nécessaires pour l'application
 const fs = require('fs')
-const https = require('https')
+const https = require('https')          // ajout flux sécurisé
+const jwt = require('jsonwebtoken')     // ajout token sécurisé
+const cors = require('cors')            // Cross Origin Resource Sharing
+const morgan = require('morgan')        // logs pour authentification par token
 const express  = require('express')  
 const mongoose = require('mongoose')  
 const path     = require('path')  
