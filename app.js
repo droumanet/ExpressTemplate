@@ -12,7 +12,6 @@
 // mise en place des modules nécessaires pour l'application
 const fs = require('fs')
 const https = require('https')          // ajout flux sécurisé
-const jwt = require('jsonwebtoken')     // ajout token sécurisé
 const cors = require('cors')            // Cross Origin Resource Sharing
 const morgan = require('morgan')        // logs pour authentification par token
 const express  = require('express')  
@@ -20,6 +19,7 @@ const mongoose = require('mongoose')
 const path     = require('path')  
 const defaultRoutes = require('./routes/defaultRoutes') 
 const medecinsRoutes = require('./routes/medecinsRoutes')
+const loginRoutes = require('./routes/loginRoutes')
 
 // connexion à MongoDB (via framework Mangoose), base de données 'demoDB'
 mongoose.connect('mongodb://localhost:27017/Hopital',{useNewUrlParser:true, useUnifiedTopology: true})  
@@ -35,6 +35,10 @@ app.use(express.static("public"))
 // Choix du moteur de rendu des vues : EJS 
 app.set('view engine','ejs')  
 
+// Utilisation des midlewares pour l'authentification
+app.use(cors())
+app.use(morgan('tiny'))
+
 // Récupération des données encodée en X-WWW-...
 app.use(express.urlencoded({extended: false}))  
 //app.use(bodyParser.urlencoded({extended:false}))  
@@ -42,6 +46,7 @@ app.use(express.urlencoded({extended: false}))
 // Gestion des routeurs à utiliser en fonction de l'URL de départ
 // note : on peut n'utiliser qu'un seul fichier de routes, le choix est ici de découper au maximum...
 app.use('/medecins/', medecinsRoutes)
+app.use('/login', loginRoutes)
 app.use('/', defaultRoutes)
 // lorsque toutes les solutions prévues ont été gérées... 404 ?
 app.use('*', defaultRoutes)
