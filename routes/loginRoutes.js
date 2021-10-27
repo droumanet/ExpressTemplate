@@ -10,7 +10,8 @@ const express =  require('express')
 const router = express.Router() 
 
 // Une authentification se passe par méthode POST
-router.post('/',loginCtrl.login)  
+router.post('/',loginCtrl.login) 
+router.get('/', loginCtrl.formLogin)
 
 
 // exportation du module (pour le rendre utilisable dans un autre fichier)

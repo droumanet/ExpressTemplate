@@ -3,6 +3,13 @@ const jwt = require('jsonwebtoken')     // ajout token sécurisé
 const SECRET = 'appKey'                 // le secret est généralement dans un fichier de configuration
 
 var loginController={  
+    // lorsque l'utilisateur doit saisir les identifiants pour s'authentifier
+    formLogin(req, res) {
+        console.log("Affiche authentification")
+        res.render('authentification')
+    },
+
+    // vérification des identifiants et création éventuelle du token
 	login(req,res){ 
         if (!req.body.username || !req.body.password) {
             return res.status(400).json({ message: `Erreur D'authentification. Vérifier l'identifiant et le mot de passe.` })

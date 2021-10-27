@@ -11,6 +11,7 @@
 
 // mise en place des modules nécessaires pour l'application
 const fs = require('fs')
+const http = require('http')
 const https = require('https')          // ajout flux sécurisé
 const cors = require('cors')            // Cross Origin Resource Sharing
 const morgan = require('morgan')        // logs pour authentification par token
@@ -52,17 +53,23 @@ app.use('/', defaultRoutes)
 app.use('*', defaultRoutes)
 
 // Définition du port de l'application  
-const port = process.env.port || 3000;
+const port = process.env.port || 3000
 
 // Définition des certificats pour le protocole HTTPS
-const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'));
-const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'));
-const options = { key, cert };
+const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'))
+const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'))
+const options = { key, cert }
 
 
 // DÉMARRAGE DE L'APPLICATION
 https.createServer(options, app).listen(port, () => {
-    console.log(`server running HTTPS. Go to https://localhost:${port}`);
-  }); 
+    console.log(`server running HTTPS. Go to https://localhost:${port}`)
+  })
 
-module.exports = app;
+/* partie test pour capture non chiffrée : Wireshark. */
+app.listen(port+1, () => {
+  console.log(`server running HTTP. Go to http://localhost:${port+1}`)
+})
+
+
+module.exports = app
