@@ -1,6 +1,11 @@
+/**
+ * 28/10 Ajout du fichier de configuration (module dotenv)
+ */
+
 // Contient la logique nécessaire à l'authentification 
 const jwt = require('jsonwebtoken')     // ajout token sécurisé
-const SECRET = 'appKey'                 // le secret est généralement dans un fichier de configuration
+const dotenv = require('dotenv')        // le secret y est stocké
+dotenv.config()
 
 var loginController={  
     // lorsque l'utilisateur doit saisir les identifiants pour s'authentifier
@@ -19,10 +24,12 @@ var loginController={
         if (req.body.username == "admin" && req.body.password =="azerty123") {
             const token = jwt.sign(
                 { id: 0, username: req.body.username},
-                SECRET,
-                { expiresIn: '1 hours'}
+                process.env.TOKEN_SECRET,
+                { expiresIn: '120s'}
             )
-            return res.json({ access_token: token})
+            // renvoit vers la page authSuccess et transmet  la "variable" access_token
+            res.cookie("access_token", token, {httpOnly: true})
+            .render('authSuccess', { access_token: token})
         } else {
             return res.status(400).json({ message: `Erreur D'authentification. Vérifier l'identifiant et le mot de passe.` })
         }

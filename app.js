@@ -15,6 +15,9 @@ const http = require('http')
 const https = require('https')          // ajout flux sécurisé
 const cors = require('cors')            // Cross Origin Resource Sharing
 const morgan = require('morgan')        // logs pour authentification par token
+const dotenv = require('dotenv')        // gestion de fichier de configuration (environnement)
+const cookieParser = require("cookie-parser")
+const middlewares = require('./middlewares')
 const express  = require('express')  
 const mongoose = require('mongoose')  
 const path     = require('path')  
@@ -39,6 +42,7 @@ app.set('view engine','ejs')
 // Utilisation des midlewares pour l'authentification
 app.use(cors())
 app.use(morgan('tiny'))
+app.use(cookieParser())
 
 // Récupération des données encodée en X-WWW-...
 app.use(express.urlencoded({extended: false}))  
@@ -46,7 +50,7 @@ app.use(express.urlencoded({extended: false}))
 
 // Gestion des routeurs à utiliser en fonction de l'URL de départ
 // note : on peut n'utiliser qu'un seul fichier de routes, le choix est ici de découper au maximum...
-app.use('/medecins/', medecinsRoutes)
+app.use('/medecins/', middlewares.checkCookieJWT, medecinsRoutes)
 app.use('/login', loginRoutes)
 app.use('/', defaultRoutes)
 // lorsque toutes les solutions prévues ont été gérées... 404 ?

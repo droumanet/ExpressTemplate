@@ -12,7 +12,7 @@ const router = express.Router()
 // liste des routes (attention à l'ordre). Pour la suppression d'un médecin, on n'utilise pas router.delete parce
 // qu'un formulaire HTML5 ne propose que les méthodes GET et POST.
 router.get('/home',medecinCtrl.homeMedecin)  
-router.post('/add',medecinCtrl.addMedecin)  
+router.post('/add', medecinCtrl.addMedecin)  
 router.get('/edit/:id',medecinCtrl.showMedecin)
 router.post('/edit/',medecinCtrl.editMedecin)   
 router.get('/delete/:id',medecinCtrl.deleteMedecin)  
