@@ -1,5 +1,6 @@
 /**
  * 28/10 Ajout du fichier de configuration (module dotenv)
+ * 31/10 
  */
 
 // Contient la logique nécessaire à l'authentification 
@@ -27,9 +28,9 @@ var loginController={
                 process.env.TOKEN_SECRET,
                 { expiresIn: '120s'}
             )
-            // renvoit vers la page authSuccess et transmet  la "variable" access_token
-            res.cookie("access_token", token, {httpOnly: true})
-            .render('authSuccess', { access_token: token})
+            // renvoie vers la page authSuccess et transmet  la "variable" access_token
+            res.cookie("access_token", token, {httpOnly: true, secure: true})
+            .render('main', {message: {type:"success", msg: "Authentification réussie ("+token+")"}})
         } else {
             return res.status(400).json({ message: `Erreur D'authentification. Vérifier l'identifiant et le mot de passe.` })
         }

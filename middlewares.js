@@ -25,7 +25,7 @@ module.exports = {
         } catch{
             // Cas du cookie dépassé ou du token dépassé
             console.log("Token ou cookie dépassé")
-            return res.render("main", {message: "erreur : Veuillez vous authentifier."})
+            return res.render("main", {message: {type:"error", msg: "erreur : Veuillez vous authentifier."}})
         }
     }
 }
