@@ -1,6 +1,10 @@
 <%- include('header'); %>
 
 <h1>Page d'accueil</h1>
+<% if (typeof message != "undefined") { %>
+    <div class="card error"><i class="fas fa-unlock"></i><%= message %></div><br>
+<% } %>
+
 <p>Cette application fictive permet d'utiliser un modèle de code utilisant les principes MVC. Vous pouvez vous en inspirer et notamment lire les commentaires dans le code pour comprendre le fonctionnement de l'application complète.</p>
 <p>Cette activité est utilisée dans le cadre de la formation en BTS SIO du lycée Aristide Bergès à Seyssinet-Pariset (Isère). Si vous détectez une erreur ou une amélioration possible (et importante pour de futurs diplômés), n'hésitez pas à contacter l'auteur.</p>
 

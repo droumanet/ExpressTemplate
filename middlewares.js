@@ -10,42 +10,22 @@ const jwt = require("jsonwebtoken")
 dotenv.config()
 
 module.exports = {
-    // récupération de la chaine du token après le mot clé 'bearer'
-    extractToken: (headerValue) => {
-        if (typeof headerValue !== 'string') {
-            return false
-        }
-
-        let TblAuthorization = headerValue.match(/(bearer)\s+(\S+)/i)  // expression régulière pour isoler bearer et le token
-        return TblAuthorization && TblAuthorization[2]
-    },
-
-    checkToken: (req, res, next) => {
-        let headerAuthorization = req.headers['authorization']
-        let token = headerAuthorization && extractToken(headerAuthorization)
-        if (!token) {
-            return res.status(401).json({message:"Token non trouvé"})
-        }
-        jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
-            if (err) {
-                return res.status(401).json({message:"Token erroné"})
-            } else {
-                return next()
-            }
-        })
-    },
-
     // vérification du cookie contenant le jeton JWT
     checkCookieJWT: (req, res, next) => {
         let token = req.cookies.access_token
+        // Si le token n'existe pas
         if (!token) {
-            return res.sendStatus(403).json({message: "erreur, cookie ou token introuvable"})
+            return res.render("main", {message: "erreur : le token n'existe pas."})
         }
         try {
+            // Cas de l'authentification réussie : on passe au middleware suivant
             let data = jwt.verify(token, process.env.TOKEN_SECRET)
+            console.log(data)
             return next()
         } catch{
-            return res.sendStatus(403).json({message: "erreur : vérification token impossible"})
+            // Cas du cookie dépassé ou du token dépassé
+            console.log("Token ou cookie dépassé")
+            return res.render("main", {message: "erreur : Veuillez vous authentifier."})
         }
     }
 }
