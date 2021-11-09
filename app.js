@@ -29,7 +29,7 @@ const loginRoutes = require('./routes/loginRoutes')
 mongoose.connect('mongodb://localhost:27017/Hopital',{useNewUrlParser:true, useUnifiedTopology: true})  
 .then(()=>console.log('connected to database Hopital')).catch(error=>console.log('error occured',error))  
 
-// Initialisation de l'instance Express
+// Initialisation de l'instance Express !
 const app = express()  
 
 // Définitions des chemins par défaut des "vues" pour le client 
