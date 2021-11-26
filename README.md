@@ -65,6 +65,30 @@ Puis en ajoutant un fichier de configuration spécifique à JSDoc :
 Enfin, en utilisant la commande suivante pour "compiler" la documentation dans le répertoire docs
 > node node_modules/jsdoc/jsdoc.js -r -c jsdoc.conf.json app.js
 
+
+# Sécurisation
+L'application contient une branche dédiée à la sécurisation, utilisant le protocole HTTPS, mais aussi le système de jeton JWT (et sa mémorisation côté client via un cookie httpOnly)
+## Sécurisation des échanges
+La mise en place d'HTTPS nécessite dans app.js
+> const https = require('https')
+
+et plus loin
+> const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'))
+> const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'))
+> const options = { key, cert }
+
+Le certificat sera généré par openssl ou en utilisant https://certificatetools.com
+
 ## Authentification
+L'usage de JSON Web Token implique plusieurs frameworks :
+* cors (module Cross Origin)
+* morgan (module logs pour authentification)
+
+Pour être plus proche d'une application de production, l'application utilise un fichier d'environnement exploitable avec le module 'dotenv'
+
+## Cookie
+Afin de permettre au client de stocker le token JWT, il existe plusieurs solutions. La solution retenue ici est un cookie inaccessible à JavaScript (côté client). Un cookie ne peut stocker que 4 Ko mais c'est amplement suffisant pour le token et quelques informations. Pour cela, il suffit de créer un cookie de type **httpOnly** et le navigateur enverra automatiquement le cookie à chaque requête (mais localement, aucune application ne pourra voir le cookie, avec notamment **document.cookie()**)
+
+Pour gérer ces cookies, on ajoute donc le module **cookie-parser** (module de gestion de cookie)
 
 
