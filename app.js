@@ -6,7 +6,7 @@
  * Toutefois, le code a été fortement remanié sur certains aspects (pas de callback sur la partie modèle).
  * Cette version ajoute la sécurisation de l'application : HTTPS et Authentification JWT
  * Elle s'appuie sur le travail d'Étienne ROUZEAUD : https://etienner.github.io/api-json-web-token-authentication-jwt-sur-express-js/
- * 
+ * 18
  */
 
 // mise en place des modules nécessaires pour l'application
