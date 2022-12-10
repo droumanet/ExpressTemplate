@@ -1,0 +1,23 @@
+<%- include('header'); %>
+	<h1>Authentification</h1>
+
+	<form action="/login" method="POST">
+		<div>
+            <div class="col-sm-12 col-md-6">
+                <div class="input-group fluid">
+                    <span class="tooltip" aria-label="Saisir identifiant"><label for="frmUsername">Identifiant</label></span>
+                    <input type="text" name="username" id="frmUsername" placeholder="identifiant"">
+                </div>
+                <div class="input-group fluid">
+                    <span class="tooltip" aria-label="Saisir le mot de passe à l'abri des regards"><label for="frmPass">Mot de passe</label></span>
+                    <input type="password" name="password" id="frmPass" placeholder="surprise">
+                </div>
+                
+                <div class="input-group fluid">
+                    <input type="submit" value="Valider">
+                </div>
+			</div>
+		</div>
+	</form>
+
+	<%- include('footer'); %>
