@@ -12,9 +12,15 @@ const path     = require('path')
 const defaultRoutes = require('./routes/defaultRoutes') 
 const medecinsRoutes = require('./routes/medecinsRoutes')   
 
+//mongodb+srv://sioadmin:M0t!v@tionSIO@siodb.yl12m10.mongodb.net/?retryWrites=true&w=majority
+mongoose.connect('mongodb+srv://sioadmin:M0t!v@tionSIO@siodb.yl12m10.mongodb.net/?retryWrites=true&w=majority', {useNewUrlParser:true, useUnifiedTopology: true})
+.then(()=>console.log('connected to database Hopital')).catch(error=>console.log('error occured while onnecting to local DB',error))
+
+/* LOCAL ONLY 
 // connexion à MongoDB (via framework Mangoose), base de données 'demoDB'
 mongoose.connect('mongodb://localhost:27017/Hopital',{useNewUrlParser:true, useUnifiedTopology: true})  
 .then(()=>console.log('connected to database Hopital')).catch(error=>console.log('error occured while onnecting to local DB',error))  
+*/
 
 // Initialisation de l'instance Express
 const app = express()  
