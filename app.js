@@ -5,7 +5,7 @@
  * La source originale du code est accessible sur https://www.c-sharpcorner.com/blogs/how-to-setup-mvc-design-pattern-in-express
  * Toutefois, le code a été fortement remanié sur certains aspects (pas de callback sur la partie modèle).
  */
-
+// Ajout commentaire pour TP sur GIT
 const express  = require('express')  
 const mongoose = require('mongoose')  
 const path     = require('path')  
