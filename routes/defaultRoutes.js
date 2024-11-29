@@ -6,7 +6,8 @@ const defaultController = require('../controllers/defaultController')
 const router = express.Router()  
 
 //this route will be executed on /user/home request  
-//userHome function will be called from the controller when request come for this route.  
+//userHome function will be called from the controller when request come for this route. 
+router.use('/robots.txt', defaultController.RobotScan) 
 router.get('/',defaultController.Home)
 router.get('*',defaultController.Error)
 

@@ -7,6 +7,11 @@ var defaultController={
 
 	Error(req, res) {
 		res.render('404')
+	},
+	
+	RobotScan(req, res) {
+		res.type('text/plain')
+		res.send("User-agent: *\nDisallow: /");
 	}
 }  
 
