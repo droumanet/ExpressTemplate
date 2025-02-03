@@ -22,7 +22,10 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "chai": "^5.1.2",
     "jsdoc": "^3.6.7",
-    "nodemon": "^2.0.12"
+    "mocha": "^11.1.0",
+    "nodemon": "^2.0.12",
+    "supertest": "^7.0.0"
   }
 }
