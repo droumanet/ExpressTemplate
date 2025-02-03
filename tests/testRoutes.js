@@ -1,7 +1,7 @@
-// test/test-routes.js
+// importer les bibliothèques pour exécuter les tests
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../src/app'); // Importer l'application Express
+const app = require('../app'); // Importer l'application Express
 const expect = chai.expect;
 
 chai.use(chaiHttp);
