@@ -7,15 +7,22 @@
  */
 
 import express from 'express'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import defaultRoutes from './routes/defaultRoutes.js'
 import medecinsRoutes from './routes/medecinsRoutes.js'
 import pool from './models/db.js'
 
+import fs from 'node:fs'
+import https from 'node:https'
+
 // __dirname n'existe pas nativement en ES6 (modules), on le recrée manuellement
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
+const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'));
+const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'));
+const options = { key, cert };
 
 // Vérification de la connexion MySQL au démarrage (non utilisé pour les requêtes)
 pool.getConnection()
@@ -48,6 +55,9 @@ app.use('*', defaultRoutes)
 const port = process.env.PORT || 3000
 
 // DÉMARRAGE DE L'APPLICATION
-app.listen(port, () => console.log(`server running at port ${port}`))
+app.listen(port, () => console.log(`server running HTTP at port ${port}`))
+https.createServer(options, app).listen(port+1, () => {
+    console.log(`server running HTTPS at https://localhost:${port+1}`);
+  });
 
 export default app
