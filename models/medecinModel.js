@@ -1,85 +1,76 @@
 /**
  * @author David ROUMANET
- * @version 1.0.0
- * @description Ce fichier contient les fonctions liées au modèle de données des médecins
-*/
-const mongoose = require('mongoose')
-
-/**  GÉNÉRER LE SCHÉMA DE LA COLLECTION
-	 Indique les champs (et les types) utilisés dans la collection de MongoDB.
-	 Types : String, Number, Date, Boolean, Array, Decimal128, Buffer, ObjectId, Map
-*/
-const medecinSchema = new mongoose.Schema({
-	nom: { type: String, uppercase: true, required: true },
-	specialite: String,
-	ville: { type: String, uppercase: true },
-	CP: Number,
-	telephone: { fixe: String, mobile: String }
-})
-// On rend le modèle disponible (export) pour les fonctions qui veulent utiliser l'objet 'medecin'
-const medecinModel = module.exports = mongoose.model('medecins', medecinSchema)
+ * @version 2.0.0 - Bascule mongoDB vers MySQL (code sensible aux injections SQL)
+ * @description ⚠️ Ce fichier contient volontairement des failles d'injection SQL.
+ * NE JAMAIS UTILISER CE CODE EN PRODUCTION.
+ * Objectif pédagogique : identifier et corriger les failles à l'aide de requêtes préparées.
+ */
+import pool from './db.js'
 
 /**
- * @description CREATE : Créer un nouveau médecin à la fin de la collection 
- * @param {medecinModel} newMedecin 
- * @returns {Object} la réponse de MongoDB à l'insertion du médecin
+ * @description CREATE : Créer un nouveau médecin à la fin de la table
  */
-async function addmedecin(newMedecin) {
-	const medecin = new medecinModel({
-		nom: newMedecin.nom,
-		specialite: newMedecin.specialite,
-		ville: newMedecin.ville,
-		CP: newMedecin.CP,
-		telephone: newMedecin.telephone
-	})
-	return medecin.save()
+export async function addmedecin(newMedecin) {
+	const query = `INSERT INTO medecins (nom, specialite, ville, CP, telephone_fixe, telephone_mobile)
+		VALUES ('${newMedecin.nom?.toUpperCase()}', '${newMedecin.specialite}', '${newMedecin.ville?.toUpperCase()}', ${newMedecin.CP}, '${newMedecin.telephone?.fixe}', '${newMedecin.telephone?.mobile}')`
+	
+	console.log('Requête exécutée:', query) // pratique pour observer l'injection en TP
+	const [result] = await pool.query(query)
+	return result
 }
 
 /**
- * @description READ : Lire tous les médecins 
- * @returns {Array} Une liste de médecins
+ * @description READ : Lire tous les médecins
  */
-async function getmedecin() {
-	return medecinModel.find()
+export async function getmedecin() {
+	const [rows] = await pool.query('SELECT * FROM medecins')
+	return rows
 }
 
 /**
- * @description UPDATE : deux fonctions utiles, l'une pour trouver le médecin recherché...
- * @param {*} medecinID correspond à l'_id du médecin
- * @returns {medecinModel} Le premier médecin correspondant au critère de recherche
+ * @description UPDATE : trouver le médecin recherché par son id
  */
-async function findmedecin(medecinID) {
-	let id = { _id: medecinID }
-	return medecinModel.findOne(id)
+export async function findmedecin(medecinID) {
+	const query = `SELECT * FROM medecins WHERE id = ${medecinID}`
+	
+	console.log('Requête exécutée:', query)
+	const [rows] = await pool.query(query)
+	return rows[0] || null
 }
+
 /**
- * @description UPDATE : ...l'autre pour modifier le médecin édité, dans la base.
- * @param {medecinModel} newMedecin qui est l'ensemble des champs d'un médecin
- * @returns {Object} Le résultat de MongoDB pour la mise à jour
+ * @description UPDATE : modifier le médecin édité, dans la base
  */
-async function editmedecin(newMedecin) {
-	const medecin = new medecinModel({
-		nom: newMedecin.nom,
-		specialite: newMedecin.specialite,
-		ville: newMedecin.ville,
-		CP: newMedecin.CP,
-		telephone: newMedecin.telephone
-	})
+export async function editmedecin(newMedecin) {
 	const id = newMedecin.id
-	console.log("ID:", id, "medecin:", medecin)
-	return medecinModel.findByIdAndUpdate(id, newMedecin)
+	console.log("ID:", id, "medecin:", newMedecin)
+
+	const query = `UPDATE medecins 
+		SET nom = '${newMedecin.nom?.toUpperCase()}', 
+		    specialite = '${newMedecin.specialite}', 
+		    ville = '${newMedecin.ville?.toUpperCase()}', 
+		    CP = ${newMedecin.CP}, 
+		    telephone_fixe = '${newMedecin.telephone?.fixe}', 
+		    telephone_mobile = '${newMedecin.telephone?.mobile}'
+		WHERE id = ${id}`
+
+	console.log('Requête exécutée:', query)
+	const [result] = await pool.query(query)
+	return result
 }
 
 /**
- * @description DELETE : la recherche et l'effacement existent dans une seule fonction
- * @param {*} medecinID correspond à l'_id du médecin à supprimer 
- * @returns {object} La réponse de MongoDB
+ * @description DELETE : effacer un médecin par son id
  */
-async function deletemedecin(medecinID) {
-	return medecinModel.findByIdAndDelete(medecinID)
+export async function deletemedecin(medecinID) {
+	const query = `DELETE FROM medecins WHERE id = ${medecinID}`
+	
+	console.log('Requête exécutée:', query)
+	const [result] = await pool.query(query)
+	return result
 }
 
-module.exports = {
+export default {
 	getmedecin,
 	addmedecin,
 	findmedecin,

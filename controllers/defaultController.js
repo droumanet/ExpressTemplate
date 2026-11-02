@@ -1,13 +1,12 @@
-
-//containt the function with business logics  
-var defaultController={  
-	Home(req,res){  
-  	    res.render('main')  
+// contains the function with business logics
+const defaultController = {
+	Home(req, res) {
+		res.render('main');
 	},
 
 	Error(req, res) {
-		res.render('404')
+		res.render('404');
 	}
-}  
+}
 
-module.exports = defaultController; 
+export default defaultController;

@@ -5,7 +5,7 @@
  */
 
 // Définir une instance du modèle 'medecinModel'
-const medecinModel = require('../models/medecinModel');
+import medecinModel from '../models/medecinModel.js';
 
 // Liste des fonctions liées à la logique métier : il s'agit d'un autre moyen d'exporter toutes les fonctions en une fois
 const medecinsController = {
@@ -43,7 +43,7 @@ const medecinsController = {
 				CP: req.body.CP,
 				telephone: req.body.telephone
 			};
-			if (medecin.nom != "" & medecin.specialite != "" & medecin.ville != "") {
+			if (medecin.nom != "" && medecin.specialite != "" && medecin.ville != "") {
 				// on transmet le nouvel utilisateur à la fonction 'addmedecin' dans le modèle 
 				let data = await medecinModel.addmedecin(medecin)
 				if (data) {
@@ -124,4 +124,4 @@ const medecinsController = {
 
 }
 
-module.exports = medecinsController;
+export default medecinsController;
