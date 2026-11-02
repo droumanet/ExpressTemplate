@@ -41,7 +41,8 @@ const medecinsController = {
 				specialite: req.body.specialite,
 				ville: req.body.ville,
 				CP: req.body.CP,
-				telephone: req.body.telephone
+				telephone: req.body.telephone,
+				mobile: req.body.mobile
 			};
 			if (medecin.nom != "" && medecin.specialite != "" && medecin.ville != "") {
 				// on transmet le nouvel utilisateur à la fonction 'addmedecin' dans le modèle 

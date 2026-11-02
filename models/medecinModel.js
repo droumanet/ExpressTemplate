@@ -12,7 +12,7 @@ import pool from './db.js'
  */
 export async function addmedecin(newMedecin) {
 	const query = `INSERT INTO medecins (nom, specialite, ville, CP, telephone_fixe, telephone_mobile)
-		VALUES ('${newMedecin.nom?.toUpperCase()}', '${newMedecin.specialite}', '${newMedecin.ville?.toUpperCase()}', ${newMedecin.CP}, '${newMedecin.telephone?.fixe}', '${newMedecin.telephone?.mobile}')`
+		VALUES ('${newMedecin.nom?.toUpperCase()}', '${newMedecin.specialite}', '${newMedecin.ville?.toUpperCase()}', ${newMedecin.CP}, '${newMedecin.telephone}', '${newMedecin.mobile}')`
 	
 	console.log('Requête exécutée:', query) // pratique pour observer l'injection en TP
 	const [result] = await pool.query(query)
