@@ -9,8 +9,14 @@
 import express from 'express'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import cors from 'cors'
+import morgan from 'morgan'
+import cookieParser from 'cookie-parser'
+
 import defaultRoutes from './routes/defaultRoutes.js'
 import medecinsRoutes from './routes/medecinsRoutes.js'
+import loginRoutes from './routes/loginRoutes.js'
+import authentificationRights from './middlewares/authentificationRights.js'
 import pool from './models/db.js'
 
 import fs from 'node:fs'
@@ -46,7 +52,9 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 
 // Gestion des routeurs à utiliser en fonction de l'URL de départ
-app.use('/medecins/', medecinsRoutes)
+app.use(cookieParser())
+app.use('/login', loginRoutes);
+app.use('/medecins/', authentificationRights.checkCookieJWT, medecinsRoutes)
 app.use('/', defaultRoutes)
 // lorsque toutes les solutions prévues ont été gérées... 404 ?
 app.use('*', defaultRoutes)
